@@ -1,0 +1,15 @@
+http.csrf(AbstractHttpConfigurer::disable)
+            .cors(httpSecurityCorsConfigurer -> 
+                    httpSecurityCorsConfigurer.configurationSource(request ->
+                        new CorsConfiguration().applyPermitDefaultValues())
+                    )
+                    .sessionManagement(session -> session
+                                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                    )
+                    .authorizeRequests(authorize -> authorize
+                            .requestMatchers("/auth/**").permitAll()
+                            .requestMatchers("/secured/user").fullyAuthenticated()
+                            .anyRequest().permitAll()
+                    )
+                    .addFilterBefore(tokenFilter,UsernamePasswordAuthenticationFilter.class);
+        return http.build();
