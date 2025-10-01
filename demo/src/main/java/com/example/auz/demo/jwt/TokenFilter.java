@@ -44,7 +44,7 @@ public class TokenFilter extends OncePerRequestFilter {
 
         try {
             String headerAuth = request.getHeader("Authorization");
-            if (headerAuth != null && headerAuth.startsWith("Bearer ")) { // Добавил пробел после "Bearer"
+            if (headerAuth != null && headerAuth.startsWith("Bearer ")) { 
                 jwt = headerAuth.substring(7);
             }
             
@@ -76,3 +76,4 @@ public class TokenFilter extends OncePerRequestFilter {
         filterChain.doFilter(request, response);
     }
 }
+
